@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import { lazy } from "react";
+import "./index.css";
+import { imageLoader } from "./pages/display";
+
+import HomePage from "./pages/home";
+import ContactPage from "./pages/contact";
+// import AboutPage from "./pages/about/about";
+import AboutThis from "./pages/about/aboutthis";
+import AboutThat from "./pages/about/aboutthat";
+import ErrorPage from "./pages/errorpage";
+
+import RootLayout from "./layouts/rootlayout";
+import AboutLayout from "./layouts/aboutlayout";
+
+// use lazy like this not directly in the Route
+const DisplayPage = lazy(() => import("./pages/display"));
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RootLayout />}>
+      <Route index element={<HomePage />} />
+      <Route path="about" element={<AboutLayout />}>
+        {/* <Route index element={<AboutPage />} /> */}
+        <Route path="aboutthis" element={<AboutThis />} />
+        <Route path="aboutthat" element={<AboutThat />} />
+      </Route>
+      <Route path="contact" element={<ContactPage />} />
+      <Route path="display" element={<DisplayPage />} loader={imageLoader} />
+
+      <Route path="*" element={<ErrorPage />} />
+    </Route>
+  )
+);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

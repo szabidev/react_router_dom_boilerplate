@@ -1,3 +1,5 @@
+BASIC BOILERPLATE TO PRACTICE REACT ROUTING, LAZY LOADING AND NESTED ROUTES
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
